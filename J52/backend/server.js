@@ -16,6 +16,16 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' })
 })
 
+app.get('/api/chart/test', (req, res) => {
+  const data = [
+    { label: 'A', value: 10 },
+    { label: 'B', value: 25 },
+    { label: 'C', value: 15 },
+    { label: 'D', value: 30 }
+  ];
+  res.json(data);
+});
+
 app.use('/api/auth', authRoutes)
 app.use('/api/chart', chartRoutes)
 

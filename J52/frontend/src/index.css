@@ -1,13 +1,70 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --color-text: #2a2a2a;
+  --color-bg: #f1edea;
+  --color-header-bg: #015a84;
+  --color-header-text: #f1edea;
+
+  --color-accent-1: #05b084;
+  --color-accent-2: #badfcd;
+  --color-accent-3: #015a84;
+  --color-accent-4: #344b73;
+  --color-accent-5: #97cd97;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+  max-width: 960px;
+  margin: 1.5rem auto;
+  padding: 0 1rem 2rem;
+}
+
+.header-link {
+  color: var(--color-header-text);
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.header-link:hover,
+.header-link:focus {
+  text-decoration: underline;
+  outline: 2px solid var(--color-accent-2);
+  outline-offset: 2px;
+}
+
+.header-link.active {
+  background-color: var(--color-accent-1);
+  color: #ffffff;
+}
+
+.header-logout-btn {
+  background-color: transparent;
+  border: 1px solid var(--color-header-text);
+  color: var(--color-header-text);
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.header-logout-btn:hover,
+.header-logout-btn:focus {
+  background-color: var(--color-header-text);
+  color: var(--color-header-bg);
+  outline: 2px solid var(--color-accent-2);
+  outline-offset: 2px;
 }

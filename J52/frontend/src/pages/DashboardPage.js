@@ -1,10 +1,13 @@
-function DashboardPage() {
-  return (
-    <section>
-      <h1>Dashboard</h1>
-      <p>Dashboard content placeholder</p>
-    </section>
-  )
-}
+import React from 'react';
+import TestChartD3 from '../components/TestChartD3';
 
-export default DashboardPage
+const DashboardPage = () => {
+  return (
+    <main>
+      <h1>Dashboard</h1>
+      <TestChartD3 />
+    </main>
+  );
+};
+
+export default DashboardPage;

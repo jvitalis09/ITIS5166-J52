@@ -1,48 +1,62 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
-import LoginPage from './pages/LoginPage'
-import DashboardPage from './pages/DashboardPage'
-import SummaryPage from './pages/SummaryPage'
-import ReportsPage from './pages/ReportsPage'
-import ProtectedRoute from './components/ProtectedRoute'
-import Layout from './components/Layout'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import DashboardPage from './pages/DashboardPage';
+import SummaryPage from './pages/SummaryPage';
+import ReportsPage from './pages/ReportsPage';
+import ProtectedRoute from './components/ProtectedRoute';
+import Header from './components/Header';
+
+function AppLayout() {
+  const location = useLocation();
+  const hideHeader = location.pathname === '/login';
+
+  return (
+    <div className="app-root">
+      {!hideHeader && <Header />}
+
+      <main className="app-main">
+        <Routes>
+          {/* Default: redirect / to /login */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
+
+          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/summary"
+            element={
+              <ProtectedRoute>
+                <SummaryPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/reports"
+            element={
+              <ProtectedRoute>
+                <ReportsPage />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </main>
+    </div>
+  );
+}
 
 function App() {
   return (
-    <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Layout>
-              <DashboardPage />
-            </Layout>
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/summary"
-        element={
-          <ProtectedRoute>
-            <Layout>
-              <SummaryPage />
-            </Layout>
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/reports"
-        element={
-          <ProtectedRoute>
-            <Layout>
-              <ReportsPage />
-            </Layout>
-          </ProtectedRoute>
-        }
-      />
-      <Route path="*" element={<Navigate to="/login" replace />} />
-    </Routes>
-  )
+    <Router>
+      <AppLayout />
+    </Router>
+  );
 }
 
-export default App
+export default App;
