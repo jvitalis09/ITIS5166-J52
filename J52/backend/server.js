@@ -1,30 +1,26 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const connectDB = require('./config/db');
+require('dotenv').config()
+const express = require('express')
+const cors = require('cors')
+const connectDb = require('./config/db')
+const authRoutes = require('./routes/auth')
+const chartRoutes = require('./routes/chartRoutes')
 
-const app = express();
+const app = express()
 
-connectDB();
+connectDb()
 
-app.use(cors()); 
-app.use(express.json());
+app.use(cors())
+app.use(express.json())
 
 app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'ok',
-    message: 'J52 backend is running',
-    time: new Date().toISOString()
-  });
-});
+  res.json({ status: 'ok' })
+})
 
-// TODO: add routes:
-// app.post('/api/auth/login', ...);
-// app.get('/api/chart/summary', ...);
-// app.get('/api/chart/reports', ...);
+app.use('/api/auth', authRoutes)
+app.use('/api/chart', chartRoutes)
 
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000
 
-app.listen(PORT, () => {
-  console.log(`J52 backend listening on port ${PORT}`);
-});
+app.listen(port, () => {
+  console.log(`J52 backend listening on port ${port}`)
+})
