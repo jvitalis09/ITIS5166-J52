@@ -14,8 +14,16 @@ function SimpleBarChart({ chart, svgId }) {
   const maxY = Math.max(...data.map((d) => d[yKey]));
   const barWidth = (width - padding * 2) / data.length;
 
-  const titleId = `${svgId}-title`;
-  const descId = `${svgId}-desc`;
+  const titleId = svgId ? `${svgId}-title` : 'chart-title';
+  const descId = svgId ? `${svgId}-desc` : 'chart-desc';
+
+  const numTicks = 4; 
+  const ticks =
+    maxY === 0
+      ? [0]
+      : Array.from({ length: numTicks + 1 }, (_, i) =>
+          Math.round((maxY / numTicks) * i)
+        );
 
   return (
     <figure className="chart-figure">
@@ -33,7 +41,6 @@ function SimpleBarChart({ chart, svgId }) {
           {yLabel} by {xKey}.
         </desc>
 
-        {/* axes */}
         <line
           x1={padding}
           y1={height - padding}
@@ -49,7 +56,28 @@ function SimpleBarChart({ chart, svgId }) {
           stroke="currentColor"
         />
 
-        {/* bars */}
+        {ticks.map((tick) => {
+          const yPos =
+            height -
+            padding -
+            (maxY === 0
+              ? 0
+              : ((height - padding * 2) * tick) / maxY);
+
+          return (
+            <g key={tick}>
+              <text
+                x={padding - 8}
+                y={yPos + 4}
+                textAnchor="end"
+                className="chart-axis-label"
+              >
+                {tick}
+              </text>
+            </g>
+          );
+        })}
+
         {data.map((d, index) => {
           const value = d[yKey];
           const barHeight =
@@ -85,10 +113,9 @@ function SimpleBarChart({ chart, svgId }) {
           );
         })}
 
-        {/* y axis label */}
         <text
           x={padding - 28}
-          y={padding}
+          y={padding - 30}
           className="chart-axis-label"
         >
           {yLabel}
