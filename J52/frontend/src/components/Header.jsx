@@ -29,11 +29,12 @@ const Header = () => {
       >
         <div
           style={{
-            fontWeight: 700,
-            letterSpacing: '0.05em',
+            fontFamily: "'Alfa Slab One', cursive",
+            fontSize: "1.6rem",
+            letterSpacing: "1px"
           }}
         >
-          J52
+          J52s
         </div>
         <div
           style={{
